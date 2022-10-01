@@ -1,26 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 import carImage  from '../../assets/images/car-1.jpg';
 
 function Cars() {
-    const cars = [{
-        id: 1,
-        name: 'Mercedez',
-        description: 'Best car you should think of',
-        price: '2,000/- rs/hour'
-    },
-    {
-        id: 2,
-        name: 'Maruti',
-        description: 'Best car you should think of',
-        price: '500/- rs/hour'
-    },
-    {
-        id: 3,
-        name: 'Hundai',
-        description: 'Best car you should think of',
-        price: '800/- rs/hour'
-    }
-];
+    let cars = [];
+    useEffect(() => {
+        axios.get('http://localhost:8080/cars')
+        .then(response => {cars = response.data });
+    }, []);
+//     const cars = [{
+//         id: 1,
+//         name: 'Mercedez',
+//         description: 'Best car you should think of',
+//         price: '2,000/- rs/hour'
+//     },
+//     {
+//         id: 2,
+//         name: 'Maruti',
+//         description: 'Best car you should think of',
+//         price: '500/- rs/hour'
+//     },
+//     {
+//         id: 3,
+//         name: 'Hundai',
+//         description: 'Best car you should think of',
+//         price: '800/- rs/hour'
+//     }
+// ];
     return (
         <div className="row cars-container">
             {
