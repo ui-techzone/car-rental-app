@@ -1,36 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import carImage  from '../../assets/images/car-1.jpg';
+import * as carsService from '../../services/cars';
 
 function Cars() {
-    let cars = [];
+    const [carsData, setCarsData] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:8080/cars')
-        .then(response => {cars = response.data });
+        carsService.getCars()
+        .then(response => {setCarsData(response.data)})
+        .catch((error) => {
+            setCarsData(cars);
+        });
     }, []);
-//     const cars = [{
-//         id: 1,
-//         name: 'Mercedez',
-//         description: 'Best car you should think of',
-//         price: '2,000/- rs/hour'
-//     },
-//     {
-//         id: 2,
-//         name: 'Maruti',
-//         description: 'Best car you should think of',
-//         price: '500/- rs/hour'
-//     },
-//     {
-//         id: 3,
-//         name: 'Hundai',
-//         description: 'Best car you should think of',
-//         price: '800/- rs/hour'
-//     }
-// ];
+    const cars = [{
+        id: 1,
+        name: 'Mercedez',
+        description: 'Best car you should think of',
+        price: '2,000/- rs/hour'
+    },
+    {
+        id: 2,
+        name: 'Maruti',
+        description: 'Best car you should think of',
+        price: '500/- rs/hour'
+    },
+    {
+        id: 3,
+        name: 'Hundai',
+        description: 'Best car you should think of',
+        price: '800/- rs/hour'
+    }
+];
     return (
         <div className="row cars-container">
             {
-                cars.map((car) => {
+                carsData.map((car) => {
                     return (
                         <div key={car.id} className="card col-md-3 me-2">
                             <img src={carImage} className="card-img-top" alt="car" />
